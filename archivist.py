@@ -7,7 +7,6 @@ import json
 import datetime
 import textwrap
 
-access_token = os.environ["ACCESS_TOKEN"]
 
 client = commands.Bot(command_prefix = ".")
 base_api_link = "https://www.googleapis.com/books/v1/volumes?q=isbn:"
@@ -52,4 +51,4 @@ async def help(ctx):
   embed.add_field(name=".find 'search term'", value="will make archivist attempt to find your book" )
   await ctx.send(embed=embed)
 
-client.run(access_token)
+client.run(process.env.ACCESS_TOKEN)
