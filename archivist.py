@@ -28,7 +28,6 @@ async def on_ready() :
 @client.command()
 async def find(ctx, *, title):
   get_isbn = isbn_from_words(title)
-  
   try:
     with urllib.request.urlopen(base_api_link + get_isbn) as f:
           text = f.read()
@@ -38,15 +37,14 @@ async def find(ctx, *, title):
     authors = obj["items"][0]["volumeInfo"]["authors"]
 
     embed = discord.Embed(colour=discord.Colour(0xf5a623), timestamp=datetime.datetime.utcnow())
-    embed.add_field(name="Title", value=volume_info["volumeInfo"]["title"], inline=False)
-    embed.add_field(name="ISBN", value=get_isbn, inline=true)
+    embed.add_field(name="Title", value=volume_info["volumeInfo"]["title"], inline=True)
+    embed.add_field(name="ISBN", value=get_isbn, inline=False)
     embed.add_field(name="Authors", value=",\n".join(authors), inline=True)
     embed.add_field(name="Public Domain ", value=volume_info["accessInfo"]["publicDomain"], inline=True)
-    embed.add_field(name="Page count", value=volume_info["volumeInfo"]["pageCount"])
+    embed.add_field(name="Page count", value=volume_info["volumeInfo"]["pageCount"], inline=True)
     embed.add_field(name="Summary", value=volume_info["searchInfo"]["textSnippet"])
   except:
     await ctx.send("look I went to the Library of Alexandria and I could not find your book, I hate to ask but are you sure thats how it is spelled?")
-
   await ctx.send(embed=embed)
 
 @client.command()
