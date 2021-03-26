@@ -5,7 +5,11 @@ from isbntools.app import *
 import urllib.request
 import json
 import datetime
-import textwrap
+import dotenv 
+from dotenv import load_dotenv
+
+load_dotenv()
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 
 client = commands.Bot(command_prefix = ".")
@@ -51,4 +55,4 @@ async def help(ctx):
   embed.add_field(name=".find 'search term'", value="will make archivist attempt to find your book" )
   await ctx.send(embed=embed)
 
-client.run(process.env.ACCESS_TOKEN)
+client.run(TOKEN)
