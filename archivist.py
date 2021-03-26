@@ -67,4 +67,4 @@ async def help(ctx):
   embed.add_field(name=".find 'search term'", value="replace 'search term' with author, title, isbn, or anything really. Archivist will attempt to find your book!" )
   await ctx.send(embed=embed)
 
-client.run("ODI0NjA0Mjc1NjQ0Njk0NTY5.YFxykw.w2wBpWltTEKKY6ICx_i8Chi59Ds")
+client.run(TOKEN)
