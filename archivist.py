@@ -36,31 +36,35 @@ async def on_ready() :
 @client.command()
 async def find(ctx, *, title):
   get_isbn = isbn_from_words(title)
-  try:
-    with urllib.request.urlopen(base_api_link + get_isbn) as f:
-          text = f.read()
-    decoded_text = text.decode("utf-8")
-    obj = json.loads(decoded_text) # deserializes decoded_text to a Python object
+  
+  with urllib.request.urlopen(base_api_link + get_isbn) as f:
+    text = f.read()
+
+  decoded_text = text.decode("utf-8")
+  obj = json.loads(decoded_text) # deserializes decoded_text to a Python object
+  if obj['totalItems'] > 0:
     volume_info = obj["items"][0] 
     authors = obj["items"][0]["volumeInfo"]["authors"]
 
-    clean_summery = strip_symbols(volume_info["searchInfo"]["textSnippet"])
+    weblink = volume_info["volumeInfo"]["previewLink"]
 
-    embed = discord.Embed(colour=discord.Colour(0xf5a623), timestamp=datetime.datetime.utcnow())
-    embed.add_field(name="Title", value=volume_info["volumeInfo"]["title"], inline=True)
+    embed = discord.Embed(colour=discord.Colour(0xf5a623), description=f"[More Information]({weblink})", timestamp=datetime.datetime.utcnow())
+    embed.set_thumbnail(url=volume_info["volumeInfo"]["imageLinks"]["thumbnail"])
+    embed.add_field(name="Title", value=volume_info["volumeInfo"]["title"], inline=False)
     embed.add_field(name="ISBN", value=get_isbn, inline=False)
     embed.add_field(name="Authors", value=",\n".join(authors), inline=True)
     embed.add_field(name="Public Domain ", value=volume_info["accessInfo"]["publicDomain"], inline=True)
     embed.add_field(name="Page count", value=volume_info["volumeInfo"]["pageCount"], inline=True)
-    embed.add_field(name="Summary", value=clean_summery)
-  except:
-    await ctx.send("look I went to the Library of Alexandria and I could not find your book, I hate to ask but are you sure thats how it is spelled?")
-  await ctx.send(embed=embed)
+    embed.add_field(name="Summary", value=volume_info["volumeInfo"]["description"])
+
+    await ctx.send(embed=embed)
+  else:
+    await ctx.send("look I went to the Library of Alexandria and I could not find your book. Maybe try a different search term.")
 
 @client.command()
 async def help(ctx):
   embed = discord.Embed(colour=discord.Colour(0xf5a623), timestamp=datetime.datetime.utcnow())
-  embed.add_field(name=".find 'search term'", value="will make archivist attempt to find your book" )
+  embed.add_field(name=".find 'search term'", value="replace 'search term' with author, title, isbn, or anything really. Archivist will attempt to find your book!" )
   await ctx.send(embed=embed)
 
-client.run(str(TOKEN))
+client.run("ODI0NjA0Mjc1NjQ0Njk0NTY5.YFxykw.w2wBpWltTEKKY6ICx_i8Chi59Ds")
