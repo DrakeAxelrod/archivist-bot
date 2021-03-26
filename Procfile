@@ -1,1 +1,1 @@
-worker: python archivist.py
+worker: python3 archivist.py
