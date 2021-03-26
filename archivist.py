@@ -55,4 +55,4 @@ async def help(ctx):
   embed.add_field(name=".find 'search term'", value="will make archivist attempt to find your book" )
   await ctx.send(embed=embed)
 
-client.run(TOKEN)
+client.run(str(TOKEN))

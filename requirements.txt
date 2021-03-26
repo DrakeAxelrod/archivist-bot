@@ -8,5 +8,6 @@ idna==3.1
 isbnlib==3.10.6
 isbntools==4.3.25
 multidict==5.1.0
+python-dotenv==0.15.0
 typing-extensions==3.7.4.3
 yarl==1.6.3
