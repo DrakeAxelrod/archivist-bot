@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-client = commands.Bot(command_prefix = ".")
+client = commands.Bot(command_prefix = ".", help_command=None)
 
 client.remove_command("help")
 # @client.command()
