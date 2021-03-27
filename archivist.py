@@ -13,12 +13,12 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 client = commands.Bot(command_prefix = ".", help_command=None)
 
-# @client.command()
-# async def help(ctx):
-#   embed = discord.Embed(colour=discord.Colour(0xf5a623), timestamp=datetime.datetime.utcnow())
-#   embed.add_field(name=".find <search term>", value="replace <search term> with author, title, isbn, or anything really. Archivist will attempt to find your book!\n", inline=False)
-#   embed.add_field(name=".find <search term -language>", value='.find <your search term -english>. The default language is english if no flag is passed', inline=False)
-#   await ctx.send(embed=embed)
+@client.command()
+async def help(ctx):
+  embed = discord.Embed(colour=discord.Colour(0xf5a623), timestamp=datetime.datetime.utcnow())
+  embed.add_field(name=".find <search term>", value="replace <search term> with author, title, isbn, or anything really. Archivist will attempt to find your book!\n", inline=False)
+  embed.add_field(name=".find <search term -language>", value='.find <your search term -english>. The default language is english if no flag is passed', inline=False)
+  await ctx.send(embed=embed)
 
 for filename in os.listdir("./cogs"):
   if filename.endswith(".py"):
