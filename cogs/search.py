@@ -24,8 +24,7 @@ class Search(commands.Cog):
   async def find(self, ctx, *, question):
     get_isbn = isbn_from_words(question)
 
-    base_api_link = BOOK_SEARCH_API
-    # "https://www.googleapis.com/books/v1/volumes?q=isbn:"
+    base_api_link = "https://www.googleapis.com/books/v1/volumes?q=isbn:"
   
     with urllib.request.urlopen(base_api_link + get_isbn) as f:
       query = f.read()
