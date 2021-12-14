@@ -1,6 +1,9 @@
 # Archivist-bot
 A Discord bot to search for books by title.
 
+## Contributors
+- [DrakeAxelrod](https://github.com/DrakeAxelrod)
+
 ## License
 
 MIT License
